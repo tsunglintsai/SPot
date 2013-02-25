@@ -39,10 +39,9 @@
         result = [[NSMutableArray alloc]init];
     }
     // get photo sorted in Alpha order
-    result = [[result sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-        return [[a[FLICKR_PHOTO_TITLE] description] compare:[b[FLICKR_PHOTO_TITLE] description]];
-    }] mutableCopy];
-    [tagPhotoMapping setObject:result forKey:tag];    
+    NSSortDescriptor *descriptor = [[NSSortDescriptor alloc]initWithKey:FLICKR_PHOTO_TITLE ascending:YES selector:@selector(caseInsensitiveCompare:)];
+    result = [[result sortedArrayUsingDescriptors:@[descriptor]] mutableCopy];
+    [tagPhotoMapping setObject:result forKey:tag];
     return result;
 }
 @end

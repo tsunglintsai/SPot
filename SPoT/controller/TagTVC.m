@@ -17,10 +17,7 @@
 - (void) setTagList:(NSDictionary *)tagList{
     _tagList = [tagList copy];
     self.orderedTagNames = [_tagList allKeys];
-    self.orderedTagNames = [self.orderedTagNames sortedArrayUsingComparator:^NSComparisonResult(id a, id b) {
-        return [a compare:b];
-    }];
-    
+    self.orderedTagNames = [self.orderedTagNames sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
     [self.tableView reloadData];
 }
 
@@ -54,7 +51,6 @@
                     NSArray *photos = [self.tagList objectForKey:[self.orderedTagNames objectAtIndex:[self.tableView indexPathForCell:sender].item]];
                     [segue.destinationViewController performSelector:@selector(setPhotos:) withObject:photos];
                     [segue.destinationViewController setTitle:[[self titleForRow:indexPath.row]capitalizedString]];
-                    
                 }
             }
         }

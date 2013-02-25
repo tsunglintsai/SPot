@@ -45,6 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3323D71316DC2199009CA0A1 /* FlickrAPIKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrAPIKey.h; sourceTree = "<group>"; };
 		3353D13216DB49C40077C7ED /* StoryboardiPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = StoryboardiPad.storyboard; sourceTree = "<group>"; };
 		33E8B50016DB333C00FB40F7 /* FlickrPhotoTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrPhotoTVC.h; sourceTree = "<group>"; };
 		33E8B50116DB333C00FB40F7 /* FlickrPhotoTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrPhotoTVC.m; sourceTree = "<group>"; };
@@ -72,7 +73,6 @@
 		BA27362316DAF4C800E6FF24 /* SPoTTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPoTTests.h; sourceTree = "<group>"; };
 		BA27362416DAF4C800E6FF24 /* SPoTTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPoTTests.m; sourceTree = "<group>"; };
 		BA27363616DAF60000E6FF24 /* StoryboardiPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = StoryboardiPhone.storyboard; sourceTree = "<group>"; };
-		BACD82D416DAF7A400102EAC /* FlickrAPIKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrAPIKey.h; sourceTree = "<group>"; };
 		BACD82D516DAF7A400102EAC /* FlickrFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrFetcher.h; sourceTree = "<group>"; };
 		BACD82D616DAF7A400102EAC /* FlickrFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrFetcher.m; sourceTree = "<group>"; };
 		BACD82DD16DAFD1E00102EAC /* RecentPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentPhoto.h; sourceTree = "<group>"; };
@@ -222,7 +222,7 @@
 		BACD82D316DAF7A400102EAC /* FlickrFetcher */ = {
 			isa = PBXGroup;
 			children = (
-				BACD82D416DAF7A400102EAC /* FlickrAPIKey.h */,
+				3323D71316DC2199009CA0A1 /* FlickrAPIKey.h */,
 				BACD82D516DAF7A400102EAC /* FlickrFetcher.h */,
 				BACD82D616DAF7A400102EAC /* FlickrFetcher.m */,
 			);
