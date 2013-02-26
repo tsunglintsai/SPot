@@ -18,7 +18,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self setPhotos:[[RecentPhoto sharedInstance]recentPhotoList]];
+    [self setPhotos:[[RecentPhoto class]recentPhotoList]];
 }
 
 

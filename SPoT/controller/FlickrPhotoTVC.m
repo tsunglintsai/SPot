@@ -36,7 +36,7 @@
         if (indexPath) {
             if ([segue.identifier isEqualToString:@"Show Image"]) {
                 if ([segue.destinationViewController respondsToSelector:@selector(setImageURL:)]) {
-                    [[RecentPhoto sharedInstance]addPhoto:self.photos[indexPath.row]];
+                    [[RecentPhoto class] addPhoto:self.photos[indexPath.row]];
                     NSURL *url = [FlickrFetcher urlForPhoto:self.photos[indexPath.row] format:FlickrPhotoFormatLarge];
                     [segue.destinationViewController performSelector:@selector(setImageURL:) withObject:url];
                     [segue.destinationViewController setTitle:[[self titleForRow:indexPath.row] capitalizedString]];

@@ -10,8 +10,7 @@
 
 @interface RecentPhoto : NSObject
 
-+ (RecentPhoto*) sharedInstance;
-- (NSArray*) recentPhotoList; // list of dictionaray
-- (void) addPhoto : (id) photo; //
++ (NSArray*) recentPhotoList; // list of dictionaray
++ (void) addPhoto : (id) photo; //
 
 @end
