@@ -16,4 +16,4 @@ Storyboard - iPad
 
 App Demo
 
-<iframe width="420" height="315" src="http://www.youtube.com/embed/MiUaid1pmzM" frameborder="0" allowfullscreen></iframe>
+<object width="420" height="315"><param name="movie" value="http://www.youtube.com/v/MiUaid1pmzM?version=3&amp;hl=en_US"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/MiUaid1pmzM?version=3&amp;hl=en_US" type="application/x-shockwave-flash" width="420" height="315" allowscriptaccess="always" allowfullscreen="true"></embed></object>
