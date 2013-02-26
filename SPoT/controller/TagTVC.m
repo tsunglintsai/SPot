@@ -43,7 +43,8 @@
 }
 
 - (NSString *) subtitleForRow:(NSUInteger)row{
-    return [NSString stringWithFormat:@"%i photos",[[self.tagList objectForKey:[self.orderedTagNames objectAtIndex:row]]count]];
+    int photoCount = [[self.tagList objectForKey:[self.orderedTagNames objectAtIndex:row]]count];
+    return  [@[ @(photoCount) , photoCount==1 ? @"photo" : @"photos" ] componentsJoinedByString:@" "];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

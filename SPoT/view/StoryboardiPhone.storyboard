@@ -102,7 +102,9 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4oq-N4-zN7"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4oq-N4-zN7">
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -159,7 +161,7 @@
             </objects>
             <point key="canvasLocation" x="229" y="75"/>
         </scene>
-        <!--Recent PhotoTVC-->
+        <!--Recent PhotoTVC - Recent Photo-->
         <scene sceneID="fmd-oM-nPD">
             <objects>
                 <tableViewController id="xMp-Dn-wn7" customClass="RecentPhotoTVC" sceneMemberID="viewController">
@@ -200,7 +202,7 @@
                             <outlet property="delegate" destination="xMp-Dn-wn7" id="cHc-eJ-2KC"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="ETp-xl-Ft9"/>
+                    <navigationItem key="navigationItem" title="Recent Photo" id="ETp-xl-Ft9"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QcT-9b-aP4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -227,7 +229,7 @@
         </scene>
     </scenes>
     <classes>
-        <class className="FlickrPhotoTVC" superclassName="UITableViewController">
+        <class className="FlickrPhotoTVC" superclassName="MasterViewTVC">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/FlickrPhotoTVC.h"/>
         </class>
         <class className="FlickrTagTVC" superclassName="TagTVC">
@@ -237,7 +239,12 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ImageViewController.h"/>
             <relationships>
                 <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="titleBarButtonItem" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
             </relationships>
+        </class>
+        <class className="MasterViewTVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MasterViewTVC.h"/>
         </class>
         <class className="NSLayoutConstraint" superclassName="NSObject">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
@@ -245,7 +252,7 @@
         <class className="RecentPhotoTVC" superclassName="FlickrPhotoTVC">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/RecentPhotoTVC.h"/>
         </class>
-        <class className="TagTVC" superclassName="UITableViewController">
+        <class className="TagTVC" superclassName="MasterViewTVC">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TagTVC.h"/>
         </class>
     </classes>
