@@ -28,6 +28,7 @@
 		BA27362216DAF4C800E6FF24 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = BA27362016DAF4C800E6FF24 /* InfoPlist.strings */; };
 		BA27362516DAF4C800E6FF24 /* SPoTTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BA27362416DAF4C800E6FF24 /* SPoTTests.m */; };
 		BA27363716DAF60000E6FF24 /* StoryboardiPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA27363616DAF60000E6FF24 /* StoryboardiPhone.storyboard */; };
+		BA3E15B716DC8FC2003E5CDE /* MasterViewTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BA3E15B616DC8FC1003E5CDE /* MasterViewTVC.m */; };
 		BACD82D716DAF7A400102EAC /* FlickrFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = BACD82D616DAF7A400102EAC /* FlickrFetcher.m */; };
 		BACD82DF16DAFD1E00102EAC /* RecentPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = BACD82DE16DAFD1E00102EAC /* RecentPhoto.m */; };
 		BACD82E216DB064000102EAC /* TagTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = BACD82E116DB064000102EAC /* TagTVC.m */; };
@@ -73,6 +74,8 @@
 		BA27362316DAF4C800E6FF24 /* SPoTTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPoTTests.h; sourceTree = "<group>"; };
 		BA27362416DAF4C800E6FF24 /* SPoTTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPoTTests.m; sourceTree = "<group>"; };
 		BA27363616DAF60000E6FF24 /* StoryboardiPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = StoryboardiPhone.storyboard; sourceTree = "<group>"; };
+		BA3E15B516DC8FC1003E5CDE /* MasterViewTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MasterViewTVC.h; sourceTree = "<group>"; };
+		BA3E15B616DC8FC1003E5CDE /* MasterViewTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MasterViewTVC.m; sourceTree = "<group>"; };
 		BACD82D516DAF7A400102EAC /* FlickrFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrFetcher.h; sourceTree = "<group>"; };
 		BACD82D616DAF7A400102EAC /* FlickrFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrFetcher.m; sourceTree = "<group>"; };
 		BACD82DD16DAFD1E00102EAC /* RecentPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentPhoto.h; sourceTree = "<group>"; };
@@ -205,6 +208,8 @@
 		BA27363516DAF55D00E6FF24 /* controller */ = {
 			isa = PBXGroup;
 			children = (
+				BA3E15B516DC8FC1003E5CDE /* MasterViewTVC.h */,
+				BA3E15B616DC8FC1003E5CDE /* MasterViewTVC.m */,
 				BACD82E016DB064000102EAC /* TagTVC.h */,
 				BACD82E116DB064000102EAC /* TagTVC.m */,
 				BACD82E616DB073700102EAC /* FlickrTagTVC.h */,
@@ -349,6 +354,7 @@
 				33E8B50216DB333C00FB40F7 /* FlickrPhotoTVC.m in Sources */,
 				33E8B50816DB37FB00FB40F7 /* ImageViewController.m in Sources */,
 				33E8B50B16DB39C200FB40F7 /* RecentPhotoTVC.m in Sources */,
+				BA3E15B716DC8FC2003E5CDE /* MasterViewTVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

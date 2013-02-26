@@ -14,6 +14,11 @@
 
 @implementation TagTVC
 
+- (void) awakeFromNib{
+    [super awakeFromNib];
+    self.splitViewController.delegate = self;
+}
+
 - (void) setTagList:(NSDictionary *)tagList{
     _tagList = [tagList copy];
     self.orderedTagNames = [_tagList allKeys];
@@ -55,6 +60,8 @@
             }
         }
     }
+    
+
 }
 
 

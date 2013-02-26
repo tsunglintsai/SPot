@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MasterViewTVC.h"
 
-@interface TagTVC : UITableViewController
+@interface TagTVC : MasterViewTVC
 @property (strong,nonatomic) NSDictionary *tagList; // key is tag name, value is array of photo
 
 @end

@@ -10,6 +10,10 @@
 #import "FlickrFetcher.h"
 #import "RecentPhoto.h"
 
+@interface FlickrPhotoTVC()<UISplitViewControllerDelegate>
+
+@end
+
 @implementation FlickrPhotoTVC
 
 // sets the Model
@@ -36,6 +40,8 @@
         if (indexPath) {
             if ([segue.identifier isEqualToString:@"Show Image"]) {
                 if ([segue.destinationViewController respondsToSelector:@selector(setImageURL:)]) {
+                    [self transferSplitViewBarButtonItemToViewController:segue.destinationViewController];
+                    
                     [[RecentPhoto class] addPhoto:self.photos[indexPath.row]];
                     NSURL *url = [FlickrFetcher urlForPhoto:self.photos[indexPath.row] format:FlickrPhotoFormatLarge];
                     [segue.destinationViewController performSelector:@selector(setImageURL:) withObject:url];
@@ -44,9 +50,14 @@
             }
         }
     }
+
+}
+// hide detail VC in portrait orientation / show it in landscape orientation
+- (BOOL) splitViewController:(UISplitViewController *)svc shouldHideViewController:(UIViewController *)vc inOrientation:(UIInterfaceOrientation)orientation
+{
+    return UIInterfaceOrientationIsPortrait(orientation);
 }
 
-#pragma mark - UITableViewDataSource
 
 // lets the UITableView know how many rows it should display
 // in this case, just the count of dictionaries in the Model's array

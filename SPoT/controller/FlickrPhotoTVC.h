@@ -8,8 +8,9 @@
 //  Will call setImageURL: as part of any "Show Image" segue.
 
 #import <UIKit/UIKit.h>
+#import "MasterViewTVC.h"
 
-@interface FlickrPhotoTVC : UITableViewController
+@interface FlickrPhotoTVC : MasterViewTVC
 
 // the Model for this VC
 // an array of dictionaries of Flickr information
