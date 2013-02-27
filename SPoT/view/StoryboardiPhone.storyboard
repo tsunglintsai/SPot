@@ -44,6 +44,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="SPoT" id="CPK-G7-39l"/>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="v9M-bd-cK0">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </refreshControl>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q9c-nN-tdA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -89,6 +92,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="g0o-kv-yYC"/>
+                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="Ueh-D4-aIl">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </refreshControl>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AGX-pw-9B3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -254,6 +260,9 @@
         </class>
         <class className="TagTVC" superclassName="MasterViewTVC">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TagTVC.h"/>
+        </class>
+        <class className="UIRefreshControl" superclassName="UIControl">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UIRefreshControl.h"/>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

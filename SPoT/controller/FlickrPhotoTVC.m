@@ -97,4 +97,9 @@
     return cell;
 }
 
+- (id) fetchModelData{
+    [self.delegate refreshContent:self];
+    return nil;
+}
+
 @end

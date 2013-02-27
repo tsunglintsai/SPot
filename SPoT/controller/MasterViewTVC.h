@@ -10,4 +10,7 @@
 
 @interface MasterViewTVC : UITableViewController<UISplitViewControllerDelegate>
 - (void)transferSplitViewBarButtonItemToViewController:(id)destinationViewController;
+- (id) fetchModelData;
+- (void) updateTableViewModel : (id) modelData;
+- (void) refresh;
 @end

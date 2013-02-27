@@ -58,12 +58,17 @@
                     [segue.destinationViewController performSelector:@selector(setPhotos:) withObject:photos];
                     [segue.destinationViewController setTitle:[[self titleForRow:indexPath.row]capitalizedString]];
                 }
+                if([segue.destinationViewController isKindOfClass:[FlickrPhotoTVC class]]){
+                    FlickrPhotoTVC *flickrPhotoTVC = segue.destinationViewController;
+                    flickrPhotoTVC.delegate = self;
+                }
             }
         }
     }
-    
-
 }
 
+- (void)refreshContent:(FlickrPhotoTVC*)sender{
+    // abstract
+}
 
 @end
