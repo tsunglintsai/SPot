@@ -9,6 +9,7 @@
 #import "MasterViewTVC.h"
 
 @interface MasterViewTVC ()<UITableViewDelegate>
+@property(strong,nonatomic) UIActivityIndicatorView *activityIndicatorView;
 
 @end
 
@@ -73,6 +74,7 @@
 
 - (void) refresh {
     [self.refreshControl beginRefreshing];
+    [self showBusyIndicator];
     dispatch_queue_t q = dispatch_queue_create("table view loading queue", NULL); dispatch_async(q, ^{
         //do something to get new data for this table view (which presumably takes time)
         id modelData = [self fetchModelData];
@@ -81,7 +83,8 @@
             [self updateTableViewModel:modelData];
             [self.tableView reloadData];
             [self.refreshControl endRefreshing];
-        });
+            [self hideBusyIndicator];
+       });
     });
 }
 
@@ -94,5 +97,26 @@
     // abstract
 }
 
+- (UIActivityIndicatorView*) activityIndicatorView{
+    if(_activityIndicatorView == nil){
+        _activityIndicatorView =
+        [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+        [_activityIndicatorView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
+    }
+    return _activityIndicatorView;
+}
 
+
+- (void)showBusyIndicator{
+    UIBarButtonItem * barButton = [[UIBarButtonItem alloc] initWithCustomView:self.activityIndicatorView];
+    self.navigationItem.rightBarButtonItem =  barButton;
+    [self.activityIndicatorView startAnimating];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+}
+
+- (void)hideBusyIndicator{
+    self.navigationItem.rightBarButtonItem = nil;
+    [self.activityIndicatorView stopAnimating];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+}
 @end

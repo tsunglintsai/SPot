@@ -13,4 +13,5 @@
 - (id) fetchModelData;
 - (void) updateTableViewModel : (id) modelData;
 - (void) refresh;
+
 @end

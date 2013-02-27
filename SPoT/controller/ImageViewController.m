@@ -13,7 +13,8 @@
 @property (strong, nonatomic) UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *titleBarButtonItem;
-@property (nonatomic, strong) UIBarButtonItem *splitViewBarButtonItem; 
+@property (nonatomic, strong) UIBarButtonItem *splitViewBarButtonItem;
+@property (strong,nonatomic) UIActivityIndicatorView *activityIndicatorView;
 @end
 
 @implementation ImageViewController
@@ -33,16 +34,26 @@
 - (void)resetImage
 {
     if (self.scrollView) {
+        [self setIsShowBusyIndicator:YES];
         self.scrollView.contentSize = CGSizeZero;
         self.imageView.image = nil;
-        NSData *imageData = [[NSData alloc] initWithContentsOfURL:self.imageURL];
-        UIImage *image = [[UIImage alloc] initWithData:imageData];
-        if (image) {
-            self.scrollView.zoomScale = 1.0;
-            self.scrollView.contentSize = image.size;
-            self.imageView.image = image;
-            self.imageView.frame = CGRectMake(0, 0, image.size.width, image.size.height);
-        }
+        [self showBusyIndicator];
+        dispatch_queue_t q = dispatch_queue_create("table view loading queue", NULL); dispatch_async(q, ^{
+            //do something to get new data for this table view (which presumably takes time)
+            NSData *imageData = [[NSData alloc] initWithContentsOfURL:self.imageURL];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //update the table view's Model to the new data, reloadData if necessary // and let the user know the refresh is over (stop spinner)
+                UIImage *image = [[UIImage alloc] initWithData:imageData];
+                if (image) {
+                    self.scrollView.zoomScale = 1.0;
+                    self.scrollView.contentSize = image.size;
+                    self.imageView.image = image;
+                    self.imageView.frame = CGRectMake(0, 0, image.size.width, image.size.height);
+                }
+                [self hideBusyIndicator];
+                [self makeImageFitInScrollView];
+            });
+        });
     }
 }
 
@@ -105,5 +116,30 @@
     self.toolbar.items = toolbarItems;
     _splitViewBarButtonItem = splitViewBarButtonItem;
 }
+
+
+- (UIActivityIndicatorView*) activityIndicatorView{
+    if(_activityIndicatorView == nil){
+        _activityIndicatorView =
+        [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
+        [_activityIndicatorView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
+    }
+    return _activityIndicatorView;
+}
+
+
+- (void)showBusyIndicator{
+    UIBarButtonItem * barButton = [[UIBarButtonItem alloc] initWithCustomView:self.activityIndicatorView];
+    self.navigationItem.rightBarButtonItem =  barButton;
+    [self.activityIndicatorView startAnimating];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+}
+
+- (void)hideBusyIndicator{
+    self.navigationItem.rightBarButtonItem = nil;
+    [self.activityIndicatorView stopAnimating];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+}
+
 
 @end
