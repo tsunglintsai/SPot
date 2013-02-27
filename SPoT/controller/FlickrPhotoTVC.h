@@ -10,6 +10,12 @@
 #import <UIKit/UIKit.h>
 #import "MasterViewTVC.h"
 
+@class FlickrPhotoTVC;
+
+@protocol FlickrPhotoTVCDelegate
+- (void) refreshContent:(FlickrPhotoTVC*)sender;
+@end
+
 @interface FlickrPhotoTVC : MasterViewTVC
 
 // the Model for this VC
@@ -17,5 +23,6 @@
 // obtained using Flickr API
 // (e.g. FlickrFetcher will obtain such an array of dictionaries)
 @property (nonatomic, strong) NSArray *photos; // of NSDictionary
+@property (nonatomic, weak) id<FlickrPhotoTVCDelegate> delegate;
 
 @end

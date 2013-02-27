@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "MasterViewTVC.h"
+#import "FlickrPhotoTVC.h"
 
-@interface TagTVC : MasterViewTVC
+@interface TagTVC : MasterViewTVC<FlickrPhotoTVCDelegate>
 @property (strong,nonatomic) NSDictionary *tagList; // key is tag name, value is array of photo
 
 @end

@@ -8,7 +8,7 @@
 
 #import "MasterViewTVC.h"
 
-@interface MasterViewTVC ()
+@interface MasterViewTVC ()<UITableViewDelegate>
 
 @end
 
@@ -25,6 +25,13 @@
 - (void) awakeFromNib
 {
     self.splitViewController.delegate = self;
+}
+
+- (void) viewDidLoad{
+    [super viewDidLoad];
+    [self.refreshControl addTarget:self
+                            action:@selector(refresh)
+                  forControlEvents:UIControlEventValueChanged];
 }
 
 #pragma mark - Split view
@@ -61,5 +68,31 @@
     if (splitViewBarButtonItem)
         [destinationViewController performSelector:@selector(setSplitViewBarButtonItem:) withObject:splitViewBarButtonItem];
 }
+
+# pragma mark - UITableView Delegate
+
+- (void) refresh {
+    [self.refreshControl beginRefreshing];
+    dispatch_queue_t q = dispatch_queue_create("table view loading queue", NULL); dispatch_async(q, ^{
+        //do something to get new data for this table view (which presumably takes time)
+        id modelData = [self fetchModelData];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //update the table view's Model to the new data, reloadData if necessary // and let the user know the refresh is over (stop spinner)
+            [self updateTableViewModel:modelData];
+            [self.tableView reloadData];
+            [self.refreshControl endRefreshing];
+        });
+    });
+}
+
+- (id) fetchModelData{
+    // abstract
+    return nil;
+}
+
+- (void) updateTableViewModel : (id) modelData{
+    // abstract
+}
+
 
 @end

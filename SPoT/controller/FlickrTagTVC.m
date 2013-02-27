@@ -17,19 +17,7 @@
 
 - (void) viewDidLoad{
     [super viewDidLoad];
-    NSMutableDictionary *tagDictionaray = [[NSMutableDictionary alloc]init];
-    for( id photoData in [FlickrFetcher stanfordPhotos]){
-        if([photoData isKindOfClass:[NSDictionary class]]){
-            NSDictionary *photoDataDictionary = photoData;
-            NSArray *tags = [[photoDataDictionary valueForKeyPath:FLICKR_TAGS] componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-            for( NSString *tag in tags){
-                if(![@[@"cs193pspot",@"portrait" , @"landscape" ] containsObject:tag]){ // remove those tags
-                    [[[self class] photoListForTag:tag from:tagDictionaray] addObject:photoData]; // add photo to array of tag
-                }
-            }
-        }
-    }
-    [self setTagList:[tagDictionaray copy]];
+    [self refresh];
 }
 
 
@@ -44,4 +32,31 @@
     [tagPhotoMapping setObject:result forKey:tag];
     return result;
 }
+
+- (id) fetchModelData{
+    NSMutableDictionary *tagDictionaray = [[NSMutableDictionary alloc]init];
+    for( id photoData in [FlickrFetcher stanfordPhotos]){
+        if([photoData isKindOfClass:[NSDictionary class]]){
+            NSDictionary *photoDataDictionary = photoData;
+            NSArray *tags = [[photoDataDictionary valueForKeyPath:FLICKR_TAGS] componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+            for( NSString *tag in tags){
+                if(![@[@"cs193pspot", @"portrait" , @"landscape" ] containsObject:tag]){ // remove those tags
+                    [[[self class] photoListForTag:tag from:tagDictionaray] addObject:photoData]; // add photo to array of tag
+                }
+            }
+        }
+    }
+    return tagDictionaray;
+}
+
+- (void) updateTableViewModel : (id) modelData{
+    [self setTagList:[modelData copy]];
+}
+
+- (void)refreshContent:(FlickrPhotoTVC*)sender{
+    [self updateTableViewModel:[self fetchModelData]];
+    [sender setPhotos:[self.tagList objectForKey:sender.title]];
+}
+
+
 @end
