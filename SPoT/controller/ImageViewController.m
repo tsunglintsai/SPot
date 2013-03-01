@@ -8,6 +8,7 @@
 
 #import "ImageViewController.h"
 #import "NetworkIndicatorHelper.h"
+#import "UIImage+FromURL.h"
 
 @interface ImageViewController () <UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -25,8 +26,7 @@
 @synthesize splitViewBarButtonItem = _splitViewBarButtonItem;
 // resets the image whenever the URL changes
 
-- (void)setImageURL:(NSURL *)imageURL
-{
+- (void)setImageURL:(NSURL *)imageURL{
     _imageURL = imageURL;
     [self resetImage];
 }
@@ -44,11 +44,11 @@
         [self showBusyIndicator];
         dispatch_queue_t q = dispatch_queue_create("table view loading queue", NULL); dispatch_async(q, ^{
             //do something to get new data for this table view (which presumably takes time)
-            NSData *imageData = [[NSData alloc] initWithContentsOfURL:self.imageURL];
+            UIImage *image =  [UIImage imageFromURL:self.imageURL];
+            NSString *url = [self.imageURL description];
             dispatch_async(dispatch_get_main_queue(), ^{
                 //update the table view's Model to the new data, reloadData if necessary // and let the user know the refresh is over (stop spinner)
-                UIImage *image = [[UIImage alloc] initWithData:imageData];
-                if (image) {
+                if (image && [url isEqualToString:url]) {
                     self.scrollView.zoomScale = 1.0;
                     self.scrollView.contentSize = image.size;
                     self.imageView.image = image;
