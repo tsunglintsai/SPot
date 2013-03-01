@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		3353D13316DB49C40077C7ED /* StoryboardiPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3353D13216DB49C40077C7ED /* StoryboardiPad.storyboard */; };
 		33E4E97F16E041FF0052903E /* NetworkIndicatorHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 33E4E97E16E041FF0052903E /* NetworkIndicatorHelper.m */; };
+		33E4E98616E0484B0052903E /* UIImage+FromURL.m in Sources */ = {isa = PBXBuildFile; fileRef = 33E4E98516E0484B0052903E /* UIImage+FromURL.m */; };
+		33E4E98F16E04AF90052903E /* ImageFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 33E4E98E16E04AF90052903E /* ImageFetcher.m */; };
 		33E8B50216DB333C00FB40F7 /* FlickrPhotoTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 33E8B50116DB333C00FB40F7 /* FlickrPhotoTVC.m */; };
 		33E8B50316DB333C00FB40F7 /* FlickrPhotoTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 33E8B50116DB333C00FB40F7 /* FlickrPhotoTVC.m */; };
 		33E8B50716DB379F00FB40F7 /* ImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 33E8B50616DB379F00FB40F7 /* ImageViewController.m */; };
@@ -51,6 +53,10 @@
 		3353D13216DB49C40077C7ED /* StoryboardiPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = StoryboardiPad.storyboard; sourceTree = "<group>"; };
 		33E4E97D16E041FF0052903E /* NetworkIndicatorHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkIndicatorHelper.h; sourceTree = "<group>"; };
 		33E4E97E16E041FF0052903E /* NetworkIndicatorHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkIndicatorHelper.m; sourceTree = "<group>"; };
+		33E4E98416E0484B0052903E /* UIImage+FromURL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+FromURL.h"; sourceTree = "<group>"; };
+		33E4E98516E0484B0052903E /* UIImage+FromURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+FromURL.m"; sourceTree = "<group>"; };
+		33E4E98D16E04AF90052903E /* ImageFetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageFetcher.h; sourceTree = "<group>"; };
+		33E4E98E16E04AF90052903E /* ImageFetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageFetcher.m; sourceTree = "<group>"; };
 		33E8B50016DB333C00FB40F7 /* FlickrPhotoTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrPhotoTVC.h; sourceTree = "<group>"; };
 		33E8B50116DB333C00FB40F7 /* FlickrPhotoTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrPhotoTVC.m; sourceTree = "<group>"; };
 		33E8B50516DB379E00FB40F7 /* ImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageViewController.h; sourceTree = "<group>"; };
@@ -204,6 +210,10 @@
 			children = (
 				BACD82DD16DAFD1E00102EAC /* RecentPhoto.h */,
 				BACD82DE16DAFD1E00102EAC /* RecentPhoto.m */,
+				33E4E98416E0484B0052903E /* UIImage+FromURL.h */,
+				33E4E98516E0484B0052903E /* UIImage+FromURL.m */,
+				33E4E98D16E04AF90052903E /* ImageFetcher.h */,
+				33E4E98E16E04AF90052903E /* ImageFetcher.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -361,6 +371,8 @@
 				33E8B50B16DB39C200FB40F7 /* RecentPhotoTVC.m in Sources */,
 				BA3E15B716DC8FC2003E5CDE /* MasterViewTVC.m in Sources */,
 				33E4E97F16E041FF0052903E /* NetworkIndicatorHelper.m in Sources */,
+				33E4E98616E0484B0052903E /* UIImage+FromURL.m in Sources */,
+				33E4E98F16E04AF90052903E /* ImageFetcher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
