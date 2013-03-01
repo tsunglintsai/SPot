@@ -7,6 +7,7 @@
 //
 
 #import "ImageViewController.h"
+#import "NetworkIndicatorHelper.h"
 
 @interface ImageViewController () <UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -14,7 +15,10 @@
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *titleBarButtonItem;
 @property (nonatomic, strong) UIBarButtonItem *splitViewBarButtonItem;
-@property (strong,nonatomic) UIActivityIndicatorView *activityIndicatorView;
+@property (strong,nonatomic) UIBarButtonItem * busyIndicatorBarButton;
+@property (strong,nonatomic) UIBarButtonItem *flexibleSpaceBeforeBusyIndicatorBarButton;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorView;
+
 @end
 
 @implementation ImageViewController
@@ -117,28 +121,26 @@
     _splitViewBarButtonItem = splitViewBarButtonItem;
 }
 
-
-- (UIActivityIndicatorView*) activityIndicatorView{
-    if(_activityIndicatorView == nil){
-        _activityIndicatorView =
-        [[UIActivityIndicatorView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
-        [_activityIndicatorView setActivityIndicatorViewStyle:UIActivityIndicatorViewStyleGray];
+- (UIBarButtonItem*) flexibleSpaceBeforeBusyIndicatorBarButton{
+    if(_flexibleSpaceBeforeBusyIndicatorBarButton == nil){
+        _flexibleSpaceBeforeBusyIndicatorBarButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
     }
-    return _activityIndicatorView;
+    return _flexibleSpaceBeforeBusyIndicatorBarButton;
 }
 
+- (void) setActivityIndicatorView:(UIActivityIndicatorView *)activityIndicatorView{
+    _activityIndicatorView = activityIndicatorView;
+    _activityIndicatorView.hidesWhenStopped = YES;
+}
 
 - (void)showBusyIndicator{
-    UIBarButtonItem * barButton = [[UIBarButtonItem alloc] initWithCustomView:self.activityIndicatorView];
-    self.navigationItem.rightBarButtonItem =  barButton;
     [self.activityIndicatorView startAnimating];
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [NetworkIndicatorHelper setNetworkActivityIndicatorVisible:YES];
 }
 
 - (void)hideBusyIndicator{
-    self.navigationItem.rightBarButtonItem = nil;
     [self.activityIndicatorView stopAnimating];
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    [NetworkIndicatorHelper setNetworkActivityIndicatorVisible:NO];
 }
 
 

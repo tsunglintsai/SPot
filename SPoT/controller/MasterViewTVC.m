@@ -7,6 +7,7 @@
 //
 
 #import "MasterViewTVC.h"
+#import "NetworkIndicatorHelper.h"
 
 @interface MasterViewTVC ()<UITableViewDelegate>
 @property(strong,nonatomic) UIActivityIndicatorView *activityIndicatorView;
@@ -108,15 +109,10 @@
 
 
 - (void)showBusyIndicator{
-    UIBarButtonItem * barButton = [[UIBarButtonItem alloc] initWithCustomView:self.activityIndicatorView];
-    self.navigationItem.rightBarButtonItem =  barButton;
-    [self.activityIndicatorView startAnimating];
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [NetworkIndicatorHelper setNetworkActivityIndicatorVisible:YES];
 }
 
 - (void)hideBusyIndicator{
-    self.navigationItem.rightBarButtonItem = nil;
-    [self.activityIndicatorView stopAnimating];
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    [NetworkIndicatorHelper setNetworkActivityIndicatorVisible:NO];
 }
 @end
