@@ -31,19 +31,8 @@
         result = [UIImage imageWithData:imageData];
     }else{
         result = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
-<<<<<<< HEAD
-        [imageFetcher.plist insertObject:[url description] atIndex:0];
-        [UIImageJPEGRepresentation(result, 1.0) writeToURL:imageFileURL atomically:YES];
-        [imageFetcher cleanupCache];
-    }else{ // move object to top
-        [imageFetcher.plist removeObject:[url description]];
-        [imageFetcher.plist insertObject:[url description] atIndex:0];
-        result = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageFileURL]];
-        
-=======
         [NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:2]]; // simulate latency
         [UIImageJPEGRepresentation(result, 1.0) writeToURL:imageFileURL atomically:YES];
->>>>>>> Use simpler approach in image fetch mode by using resource last access date in NSURL
     }
     [self cleanupCache];
     return result;

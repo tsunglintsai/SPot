@@ -41,9 +41,9 @@
             if ([segue.identifier isEqualToString:@"Show Image"]) {
                 if ([segue.destinationViewController respondsToSelector:@selector(setImageURL:)]) {
                     [self transferSplitViewBarButtonItemToViewController:segue.destinationViewController];
-                    
                     [[RecentPhoto class] addPhoto:self.photos[indexPath.row]];
-                    NSURL *url = [FlickrFetcher urlForPhoto:self.photos[indexPath.row] format:FlickrPhotoFormatLarge];
+                    // make a switch between ipad and iphone 
+                    NSURL *url = [FlickrFetcher urlForPhoto:self.photos[indexPath.row] format:self.view.window.bounds.size.width > 500 ? FlickrPhotoFormatOriginal : FlickrPhotoFormatLarge];
                     [segue.destinationViewController performSelector:@selector(setImageURL:) withObject:url];
                     [segue.destinationViewController setTitle:[[self titleForRow:indexPath.row] capitalizedString]];
                 }
