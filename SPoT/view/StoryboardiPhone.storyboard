@@ -111,6 +111,7 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4oq-N4-zN7">
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </scrollView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="ars-7R-u5A"/>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -118,10 +119,13 @@
                             <constraint firstItem="4oq-N4-zN7" firstAttribute="top" secondItem="69A-Dk-lFj" secondAttribute="top" type="default" id="5h0-a6-hSV"/>
                             <constraint firstItem="4oq-N4-zN7" firstAttribute="leading" secondItem="69A-Dk-lFj" secondAttribute="leading" type="default" id="GUr-vu-A2Q"/>
                             <constraint firstItem="4oq-N4-zN7" firstAttribute="trailing" secondItem="69A-Dk-lFj" secondAttribute="trailing" type="default" id="Z1U-Am-Epc"/>
+                            <constraint firstItem="ars-7R-u5A" firstAttribute="centerY" secondItem="4oq-N4-zN7" secondAttribute="centerY" type="default" id="ezi-G8-ZQS"/>
+                            <constraint firstItem="ars-7R-u5A" firstAttribute="centerX" secondItem="4oq-N4-zN7" secondAttribute="centerX" type="default" id="mfg-gb-JnE"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="qM9-d0-gQi"/>
                     <connections>
+                        <outlet property="activityIndicatorView" destination="ars-7R-u5A" id="1xf-hQ-m8Y"/>
                         <outlet property="scrollView" destination="4oq-N4-zN7" id="QEl-45-2Uu"/>
                     </connections>
                 </viewController>
@@ -244,6 +248,7 @@
         <class className="ImageViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ImageViewController.h"/>
             <relationships>
+                <relationship kind="outlet" name="activityIndicatorView" candidateClass="UIActivityIndicatorView"/>
                 <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
                 <relationship kind="outlet" name="titleBarButtonItem" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
@@ -271,6 +276,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="a4j-UX-WxB"/>
+        <segue reference="QUx-IH-rD7"/>
     </inferredMetricsTieBreakers>
 </document>
