@@ -12,21 +12,21 @@
 #define MAX_CACHE_SIZE 1024*1024*5 // 5MB
 
 @interface ImageFetcher()
-@property (strong,nonatomic) NSMutableArray *plist; // use property list to persist mapping url-photofile mapping, array of nsarray{url,filename}]
 @end
 @implementation ImageFetcher
 
 static ImageFetcher *imageFetcher;
 
-+(UIImage*)getImageFromURL:(NSURL*)url{
+-(UIImage*)getImageFromURL:(NSURL*)url{
     UIImage *result;
-    if(!imageFetcher){
-        imageFetcher = [[ImageFetcher alloc]init];
-        [imageFetcher createImageFolder];
-    }
+    imageFetcher = [[ImageFetcher alloc]init];
     NSURL *imageFileURL = [imageFetcher imageFileURLFromInternetURL:url];
-    if(![imageFetcher.plist containsObject:[url description]]){
+    NSData *imageData = [NSData dataWithContentsOfURL:imageFileURL];
+    if(imageData){ // if file not found download image from internet
+        result = [UIImage imageWithData:imageData];
+    }else{
         result = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+<<<<<<< HEAD
         [imageFetcher.plist insertObject:[url description] atIndex:0];
         [UIImageJPEGRepresentation(result, 1.0) writeToURL:imageFileURL atomically:YES];
         [imageFetcher cleanupCache];
@@ -35,34 +35,45 @@ static ImageFetcher *imageFetcher;
         [imageFetcher.plist insertObject:[url description] atIndex:0];
         result = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageFileURL]];
         
+=======
+        [NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:2]]; // simulate latency
+        [UIImageJPEGRepresentation(result, 1.0) writeToURL:imageFileURL atomically:YES];
+>>>>>>> Use simpler approach in image fetch mode by using resource last access date in NSURL
     }
-    [imageFetcher savePropertyList];
+    [imageFetcher cleanupCache];
     return result;
 }
 
 -(void) cleanupCache{
-    while([self totalCacheFileSizeInDisk]>MAX_CACHE_SIZE && [[self plist]count]!=0){
-        NSURL *lastImageURL = [NSURL URLWithString:[[self plist]lastObject]];
-        NSURL *fileURL = [self imageFileURLFromInternetURL:lastImageURL];
-        [[NSFileManager defaultManager]removeItemAtURL:fileURL error:nil];
-        [[self plist]removeLastObject];
+    while([self totalCacheFileSizeInDisk]>MAX_CACHE_SIZE){
+        [[NSFileManager defaultManager]removeItemAtURL:[self oldestImageFileURL] error:nil];
     }
 }
 
+-(NSURL*) oldestImageFileURL{
+    NSMutableArray *fileURLs = [[NSMutableArray alloc]init];
+    for(NSURL *fileUrl  in [[[NSFileManager alloc]init] contentsOfDirectoryAtURL:[self imageFolderUrl] includingPropertiesForKeys:@[NSURLContentAccessDateKey] options:NSDirectoryEnumerationSkipsHiddenFiles error:nil]){
+        [fileURLs addObject:fileUrl];
+    }
+    [fileURLs sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        NSDate *dateForFile1,*dateForFile2;
+        [obj1 getResourceValue:&dateForFile1 forKey:NSURLContentAccessDateKey error:nil];
+        [obj2 getResourceValue:&dateForFile2 forKey:NSURLContentAccessDateKey error:nil];
+        return [dateForFile2 compare:dateForFile1]; // sort file in access order, oldest one be back
+    }];
+    return [fileURLs lastObject];
+}
 
 -(float) totalCacheFileSizeInDisk{ // in bytes
     float result = 0;
-    for(id data in imageFetcher.plist){
-        if([data isKindOfClass:[NSString class]]){
-            NSURL *imageURL = [NSURL URLWithString:data];
-            result+= [imageFetcher getFileSize:[self imageFileURLFromInternetURL:imageURL]];
-        }
+    for(NSURL *fileUrl  in [[[NSFileManager alloc]init] contentsOfDirectoryAtURL:[self imageFolderUrl] includingPropertiesForKeys:@[NSURLNameKey,NSURLContentAccessDateKey] options:NSDirectoryEnumerationSkipsHiddenFiles error:nil]){
+        result+= [imageFetcher getFileSize:fileUrl];
     }
     return result;
 }
 
 -(NSURL*)imageFileURLFromInternetURL:(NSURL*)internetURL{
-    return [[[self imageFolderUrl] URLByAppendingPathComponent:[internetURL lastPathComponent]]URLByAppendingPathExtension:@"jpg"];
+    return [[self imageFolderUrl] URLByAppendingPathComponent:[internetURL lastPathComponent]];
 }
 
 -(float) getFileSize: (NSURL*) fileUrl{ //  get image size in bytes
@@ -84,26 +95,5 @@ static ImageFetcher *imageFetcher;
     [fileManager createDirectoryAtURL:[self imageFolderUrl] withIntermediateDirectories:YES attributes:nil error:nil];
 }
 
--(NSMutableArray*)plist{
-    if(!_plist){
-        // if plist file not there, create a new one.
-        _plist = [[NSMutableArray alloc] initWithContentsOfURL:[self propertyListFileUrl]];
-        if(!_plist){ // file doesn't exit then create new dictionaray
-            _plist = [[NSMutableArray alloc]init];
-        }
-    }
-    return _plist;
-}
 
--(NSURL*) propertyListFileUrl{
-    NSFileManager* fileManager = [[NSFileManager alloc]init];// don't use defaultFilemanager, it's not thread safe
-    NSURL *documentDirectory = [fileManager URLForDirectory:NSCachesDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
-    NSURL *propertyListFileUrl = [[documentDirectory URLByAppendingPathComponent:PHOTO_CACHE_PLIST_FILENAME] URLByAppendingPathExtension:@"plist"];
-    return propertyListFileUrl;
-}
-
--(void) savePropertyList{    
-    [self.plist writeToURL:[self propertyListFileUrl] atomically:YES];
-}
-         
 @end
