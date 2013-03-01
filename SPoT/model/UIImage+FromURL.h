@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ImageFetcher.h"
 
 @interface UIImage (FromURL)
 + (UIImage *)imageFromURL:(NSURL *)url;
++ (UIImage *)imageFromURL:(NSURL *)url WithProgressBlock:(ProgressBlock)block;
+
 @end

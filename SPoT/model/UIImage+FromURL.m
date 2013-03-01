@@ -7,10 +7,14 @@
 //
 
 #import "UIImage+FromURL.h"
-#import "ImageFetcher.h"
 
 @implementation UIImage (FromURL)
 + (UIImage *)imageFromURL:(NSURL *)url{
     return [[[ImageFetcher alloc]init]getImageFromURL:url];
 }
+
++ (UIImage *)imageFromURL:(NSURL *)url WithProgressBlock:(ProgressBlock)block{
+    return [[[ImageFetcher alloc]init]getImageFromURL:url WithProgressBlock:block];
+}
+
 @end

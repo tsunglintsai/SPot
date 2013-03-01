@@ -132,6 +132,20 @@
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </scrollView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="g7U-vY-wFc"/>
+                            <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N9B-jC-7IL">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="Xox-vr-HX0"/>
+                                </constraints>
+                            </progressView>
+                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Srf-Y4-JO6">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="fbX-EB-6AA"/>
+                                    <constraint firstAttribute="width" constant="200" id="gnT-vW-WZk"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="81d-Oa-48c">
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="hj4-GV-qU5"/>
@@ -142,21 +156,27 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Srf-Y4-JO6" firstAttribute="centerY" secondItem="shh-7j-OCB" secondAttribute="centerY" type="default" id="AuY-Ze-ksF"/>
                             <constraint firstItem="81d-Oa-48c" firstAttribute="top" secondItem="a7S-rP-etA" secondAttribute="top" type="default" id="BOW-si-RhG"/>
+                            <constraint firstItem="g7U-vY-wFc" firstAttribute="centerX" secondItem="N9B-jC-7IL" secondAttribute="centerX" type="default" id="Gzh-G2-KW1"/>
                             <constraint firstItem="shh-7j-OCB" firstAttribute="top" secondItem="81d-Oa-48c" secondAttribute="bottom" type="default" id="Raq-zf-osu"/>
-                            <constraint firstItem="g7U-vY-wFc" firstAttribute="centerX" secondItem="81d-Oa-48c" secondAttribute="centerX" type="default" id="U05-xm-E2c"/>
                             <constraint firstItem="81d-Oa-48c" firstAttribute="trailing" secondItem="a7S-rP-etA" secondAttribute="trailing" type="default" id="VSF-A7-2qr"/>
                             <constraint firstItem="shh-7j-OCB" firstAttribute="leading" secondItem="a7S-rP-etA" secondAttribute="leading" type="default" id="Vgz-hT-DLk"/>
                             <constraint firstItem="shh-7j-OCB" firstAttribute="trailing" secondItem="a7S-rP-etA" secondAttribute="trailing" type="default" id="dHp-bp-G0P"/>
+                            <constraint firstItem="Srf-Y4-JO6" firstAttribute="centerX" secondItem="N9B-jC-7IL" secondAttribute="centerX" type="default" id="dUW-N1-2wn"/>
                             <constraint firstItem="shh-7j-OCB" firstAttribute="bottom" secondItem="a7S-rP-etA" secondAttribute="bottom" type="default" id="fRV-4S-gb0"/>
-                            <constraint firstItem="g7U-vY-wFc" firstAttribute="centerY" secondItem="a7S-rP-etA" secondAttribute="centerY" type="default" id="qHC-iY-Wb3"/>
+                            <constraint firstItem="N9B-jC-7IL" firstAttribute="top" secondItem="g7U-vY-wFc" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="pPe-36-2Up"/>
                             <constraint firstItem="81d-Oa-48c" firstAttribute="leading" secondItem="a7S-rP-etA" secondAttribute="leading" type="default" id="sXU-on-a13"/>
+                            <constraint firstItem="Srf-Y4-JO6" firstAttribute="top" secondItem="N9B-jC-7IL" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="u6O-pZ-DID"/>
+                            <constraint firstItem="g7U-vY-wFc" firstAttribute="centerX" secondItem="81d-Oa-48c" secondAttribute="centerX" type="default" id="ujh-S8-yYd"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="YMG-Ve-26T"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
                     <connections>
                         <outlet property="activityIndicatorView" destination="g7U-vY-wFc" id="oig-K2-WJr"/>
+                        <outlet property="downloadInfoLabel" destination="Srf-Y4-JO6" id="Web-vF-J7q"/>
+                        <outlet property="downloadProgressBar" destination="N9B-jC-7IL" id="AF9-DL-Ipe"/>
                         <outlet property="scrollView" destination="shh-7j-OCB" id="brv-Xs-9p5"/>
                         <outlet property="titleBarButtonItem" destination="m4s-AJ-8KF" id="naa-ne-Fsy"/>
                         <outlet property="toolbar" destination="81d-Oa-48c" id="izA-Rd-b0S"/>
@@ -286,6 +306,8 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ImageViewController.h"/>
             <relationships>
                 <relationship kind="outlet" name="activityIndicatorView" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="downloadInfoLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="downloadProgressBar" candidateClass="UIProgressView"/>
                 <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
                 <relationship kind="outlet" name="titleBarButtonItem" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
