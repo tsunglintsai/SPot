@@ -37,7 +37,7 @@
 // sets the image as the image view's image
 - (void)resetImage
 {
-    if (self.scrollView) {
+    if (self.scrollView && self.imageURL!= nil) {
         [self setIsShowBusyIndicator:YES];
         self.scrollView.contentSize = CGSizeZero;
         self.imageView.image = nil;
