@@ -27,6 +27,7 @@ static ImageFetcher *imageFetcher;
     NSURL *imageFileURL = [imageFetcher imageFileURLFromInternetURL:url];
     if(![imageFetcher.plist containsObject:[url description]]){
         result = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+        [NSThread sleepUntilDate:[NSDate dateWithTimeIntervalSinceNow:2]]; // simulate latency
         [imageFetcher.plist insertObject:[url description] atIndex:0];
         [UIImageJPEGRepresentation(result, 1.0) writeToURL:imageFileURL atomically:YES];
         [imageFetcher cleanupCache];
@@ -34,7 +35,10 @@ static ImageFetcher *imageFetcher;
         [imageFetcher.plist removeObject:[url description]];
         [imageFetcher.plist insertObject:[url description] atIndex:0];
         result = [UIImage imageWithData:[NSData dataWithContentsOfURL:imageFileURL]];
-        
+        if(!result){ // if file somehow been clean up by system, redownload it.
+            result = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+            [UIImageJPEGRepresentation(result, 1.0) writeToURL:imageFileURL atomically:YES];
+        }
     }
     [imageFetcher savePropertyList];
     return result;
