@@ -112,20 +112,40 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </scrollView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="ars-7R-u5A"/>
+                            <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n8F-3I-XeT">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="GSj-os-OfN"/>
+                                </constraints>
+                            </progressView>
+                            <label hidden="YES" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jII-ZF-pnG">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="Ic2-qT-C4Y"/>
+                                    <constraint firstAttribute="height" constant="21" id="oC4-s2-HL0"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="4oq-N4-zN7" firstAttribute="bottom" secondItem="69A-Dk-lFj" secondAttribute="bottom" type="default" id="0Sy-Mz-Vl1"/>
                             <constraint firstItem="4oq-N4-zN7" firstAttribute="top" secondItem="69A-Dk-lFj" secondAttribute="top" type="default" id="5h0-a6-hSV"/>
                             <constraint firstItem="4oq-N4-zN7" firstAttribute="leading" secondItem="69A-Dk-lFj" secondAttribute="leading" type="default" id="GUr-vu-A2Q"/>
+                            <constraint firstItem="n8F-3I-XeT" firstAttribute="top" secondItem="ars-7R-u5A" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="RTY-bo-rvn"/>
+                            <constraint firstItem="n8F-3I-XeT" firstAttribute="centerX" secondItem="4oq-N4-zN7" secondAttribute="centerX" type="default" id="Utf-T4-s1r"/>
                             <constraint firstItem="4oq-N4-zN7" firstAttribute="trailing" secondItem="69A-Dk-lFj" secondAttribute="trailing" type="default" id="Z1U-Am-Epc"/>
-                            <constraint firstItem="ars-7R-u5A" firstAttribute="centerY" secondItem="4oq-N4-zN7" secondAttribute="centerY" type="default" id="ezi-G8-ZQS"/>
-                            <constraint firstItem="ars-7R-u5A" firstAttribute="centerX" secondItem="4oq-N4-zN7" secondAttribute="centerX" type="default" id="mfg-gb-JnE"/>
+                            <constraint firstItem="jII-ZF-pnG" firstAttribute="top" secondItem="n8F-3I-XeT" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="ava-Ji-Kos"/>
+                            <constraint firstItem="n8F-3I-XeT" firstAttribute="centerY" secondItem="4oq-N4-zN7" secondAttribute="centerY" type="default" id="kj6-Om-eu0"/>
+                            <constraint firstItem="jII-ZF-pnG" firstAttribute="centerX" secondItem="n8F-3I-XeT" secondAttribute="centerX" type="default" id="mRu-BB-I13"/>
+                            <constraint firstItem="n8F-3I-XeT" firstAttribute="centerX" secondItem="ars-7R-u5A" secondAttribute="centerX" type="default" id="x9o-9H-CVP"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="qM9-d0-gQi"/>
                     <connections>
                         <outlet property="activityIndicatorView" destination="ars-7R-u5A" id="1xf-hQ-m8Y"/>
+                        <outlet property="downloadInfoLabel" destination="jII-ZF-pnG" id="soh-4t-YTh"/>
+                        <outlet property="downloadProgressBar" destination="n8F-3I-XeT" id="9cS-9g-WwZ"/>
                         <outlet property="scrollView" destination="4oq-N4-zN7" id="QEl-45-2Uu"/>
                     </connections>
                 </viewController>
@@ -249,6 +269,8 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/ImageViewController.h"/>
             <relationships>
                 <relationship kind="outlet" name="activityIndicatorView" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="downloadInfoLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="downloadProgressBar" candidateClass="UIProgressView"/>
                 <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
                 <relationship kind="outlet" name="titleBarButtonItem" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>

@@ -10,6 +10,9 @@
 
 @interface ImageFetcher : NSObject
 
+typedef void (^ProgressBlock)(long,long);
+
 -(UIImage*)getImageFromURL:(NSURL*)url;
+-(UIImage*)getImageFromURL:(NSURL*)url WithProgressBlock:(ProgressBlock)block;
 
 @end

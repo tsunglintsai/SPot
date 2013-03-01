@@ -9,8 +9,9 @@
 #import "ImageViewController.h"
 #import "NetworkIndicatorHelper.h"
 #import "UIImage+FromURL.h"
+#import "ImageFetcher.h"
 
-@interface ImageViewController () <UIScrollViewDelegate>
+@interface ImageViewController () <UIScrollViewDelegate,NSURLConnectionDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UIToolbar *toolbar;
@@ -19,7 +20,13 @@
 @property (strong,nonatomic) UIBarButtonItem * busyIndicatorBarButton;
 @property (strong,nonatomic) UIBarButtonItem *flexibleSpaceBeforeBusyIndicatorBarButton;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorView;
+@property (weak, nonatomic) IBOutlet UIProgressView *downloadProgressBar;
+@property (weak, nonatomic) IBOutlet UILabel *downloadInfoLabel;
 
+//test
+@property (strong, nonatomic, ) NSMutableData *responseData; //stores the image data as it's being downloaded
+@property (readwrite,nonatomic) long imageFileSize; //'expected' file size in bytes
+@property (strong, nonatomic) NSURLConnection *connection; //the asynchronous network connection that you can send messages to
 @end
 
 @implementation ImageViewController
@@ -44,7 +51,12 @@
         [self showBusyIndicator];
         dispatch_queue_t q = dispatch_queue_create("table view loading queue", NULL); dispatch_async(q, ^{
             //do something to get new data for this table view (which presumably takes time)
-            UIImage *image =  [UIImage imageFromURL:self.imageURL];
+            UIImage *image = [UIImage imageFromURL:self.imageURL WithProgressBlock:^(long downloadedSize,long totatlSize){
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    self.downloadProgressBar.progress = [@(downloadedSize)floatValue] / [@(totatlSize)floatValue];
+                    self.downloadInfoLabel.text = [@[ @(downloadedSize/1024), @"/", @(totatlSize/1024),@"KB"] componentsJoinedByString:@" "];
+                });
+            }];
             NSString *url = [self.imageURL description];
             dispatch_async(dispatch_get_main_queue(), ^{
                 //update the table view's Model to the new data, reloadData if necessary // and let the user know the refresh is over (stop spinner)
@@ -113,6 +125,10 @@
     [self makeImageFitInScrollView];
 }
 
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+}
+
 - (void)setSplitViewBarButtonItem:(UIBarButtonItem *)splitViewBarButtonItem{
     NSMutableArray *toolbarItems = [self.toolbar.items mutableCopy];
     if (_splitViewBarButtonItem) [toolbarItems removeObject:_splitViewBarButtonItem];
@@ -134,14 +150,17 @@
 }
 
 - (void)showBusyIndicator{
+    self.downloadProgressBar.hidden = NO;
+    self.downloadInfoLabel.hidden = NO;
     [self.activityIndicatorView startAnimating];
     [NetworkIndicatorHelper setNetworkActivityIndicatorVisible:YES];
 }
 
 - (void)hideBusyIndicator{
+    self.downloadProgressBar.hidden = YES;
+    self.downloadInfoLabel.hidden = YES;
     [self.activityIndicatorView stopAnimating];
     [NetworkIndicatorHelper setNetworkActivityIndicatorVisible:NO];
 }
-
 
 @end

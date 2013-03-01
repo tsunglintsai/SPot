@@ -11,16 +11,21 @@
 #define PHOTO_CACHE_PLIST_FILENAME @"CachePropertyList"
 #define MAX_CACHE_SIZE 1024*1024*5 // 5MB
 
-@interface ImageFetcher()
-@end
-@implementation ImageFetcher
 
-static ImageFetcher *imageFetcher;
+@interface ImageFetcher()<NSURLConnectionDelegate>{
+    dispatch_semaphore_t sema;
+    ProgressBlock callBackBlock;
+}
+@property (strong, nonatomic) NSMutableData *responseData; //stores the image data as it's being downloaded
+@property (readwrite,nonatomic) long imageFileSize; //'expected' file size in bytes
+@property (strong, nonatomic) NSURLConnection *connection; //the asynchronous network connection that you can send messages to
+@end
+
+@implementation ImageFetcher
 
 -(UIImage*)getImageFromURL:(NSURL*)url{
     UIImage *result;
-    imageFetcher = [[ImageFetcher alloc]init];
-    NSURL *imageFileURL = [imageFetcher imageFileURLFromInternetURL:url];
+    NSURL *imageFileURL = [self imageFileURLFromInternetURL:url];
     NSData *imageData = [NSData dataWithContentsOfURL:imageFileURL];
     if(imageData){ // if file not found download image from internet
         result = [UIImage imageWithData:imageData];
@@ -40,7 +45,30 @@ static ImageFetcher *imageFetcher;
         [UIImageJPEGRepresentation(result, 1.0) writeToURL:imageFileURL atomically:YES];
 >>>>>>> Use simpler approach in image fetch mode by using resource last access date in NSURL
     }
-    [imageFetcher cleanupCache];
+    [self cleanupCache];
+    return result;
+}
+
+-(UIImage*)getImageFromURL:(NSURL*)url WithProgressBlock:(ProgressBlock)block{
+    UIImage *result;
+    NSURL *imageFileURL = [self imageFileURLFromInternetURL:url];
+    NSData *imageData = [NSData dataWithContentsOfURL:imageFileURL];
+    if(imageData){ // if file not found download image from internet
+        result = [UIImage imageWithData:imageData];
+    }else{
+        callBackBlock = block;
+        sema = dispatch_semaphore_create(0);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init] ;
+            [request setURL:url];
+            NSURLConnection *theConnection=[[NSURLConnection alloc] initWithRequest:request delegate:self];
+            if (theConnection) {}
+        });
+        dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+        result = [UIImage imageWithData:self.responseData];
+        [UIImageJPEGRepresentation(result, 1.0) writeToURL:imageFileURL atomically:YES];
+    }
+    [self cleanupCache];
     return result;
 }
 
@@ -67,7 +95,7 @@ static ImageFetcher *imageFetcher;
 -(float) totalCacheFileSizeInDisk{ // in bytes
     float result = 0;
     for(NSURL *fileUrl  in [[[NSFileManager alloc]init] contentsOfDirectoryAtURL:[self imageFolderUrl] includingPropertiesForKeys:@[NSURLNameKey,NSURLContentAccessDateKey] options:NSDirectoryEnumerationSkipsHiddenFiles error:nil]){
-        result+= [imageFetcher getFileSize:fileUrl];
+        result+= [self getFileSize:fileUrl];
     }
     return result;
 }
@@ -95,5 +123,34 @@ static ImageFetcher *imageFetcher;
     [fileManager createDirectoryAtURL:[self imageFolderUrl] withIntermediateDirectories:YES attributes:nil error:nil];
 }
 
+#pragma mark - NSURLConnection deleagte
 
+-(NSMutableData*)responseData{
+    if(!_responseData){
+        _responseData = [[NSMutableData alloc]init];
+    }
+    return _responseData;
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
+    [self.responseData setLength:0];
+    self.imageFileSize = [response expectedContentLength];
+    callBackBlock([self.responseData length],self.imageFileSize);
+    
+}
+
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data{
+    [self.responseData appendData:data];
+    callBackBlock([self.responseData length],self.imageFileSize);
+}
+
+
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
+    dispatch_semaphore_signal(sema);
+}
+
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
+    dispatch_semaphore_signal(sema);
+    callBackBlock([self.responseData length],self.imageFileSize);
+}
 @end
