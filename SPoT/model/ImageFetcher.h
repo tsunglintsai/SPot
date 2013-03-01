@@ -10,6 +10,6 @@
 
 @interface ImageFetcher : NSObject
 
-+(UIImage*)getImageFromURL:(NSURL*)url;
+-(UIImage*)getImageFromURL:(NSURL*)url;
 
 @end

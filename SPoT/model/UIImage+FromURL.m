@@ -11,6 +11,6 @@
 
 @implementation UIImage (FromURL)
 + (UIImage *)imageFromURL:(NSURL *)url{
-    return [ImageFetcher getImageFromURL:url];
+    return [[[ImageFetcher alloc]init]getImageFromURL:url];
 }
 @end
